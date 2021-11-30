@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <title>Document</title>
+    <style>
+      .control {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .slides {
+        display: flex;
+        border-radius: 2mm;
+        overflow: hidden;
+      }
+      .slide {
+        width: 90vw;
+        border-radius: 2mm;
+        overflow: hidden;
+      }
+      .slider {
+        width: 90vw;
+        overflow: hidden;
+        box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+        border-radius: 2mm;
+        position: relative;
+        border: rgb(214, 235, 255) solid 1px;
+      }
+      body {
+        margin: 0;
+      }
+      .icons {
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        padding: 10px 0;
+      }
+      .dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: rgb(206, 212, 219);
+        margin-right: 10px;
+        transition: 0.5s;
+      }
+      .active {
+        background: dodgerblue;
+        width: 20px;
+        height: 10px;
+        border-radius: 2mm;
+      }
+      .buttons {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .buttons button {
+        background: none;
+        outline: none;
+        border: none;
+        cursor: pointer;
+        margin: 0 15px;
+        margin-right: 20px;
+      }
+      .buttons button span {
+        background: white;
+        box-shadow: 0 3px 3px rgba(0, 0, 0, 0.5);
+        width: 20px;
+        height: 20px;
+        text-align: center;
+        border-radius: 50%;
+        font-size: 20px;
+        line-height: 20px;
+      }
+      .buttons button:hover {
+        color: dodgerblue;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="control">
+      <div class="slider">
+        <div class="slides">
+          <img src="images/slide1.jpg" alt="" class="slide" />
+          <img src="images/slide2.jpg" alt="" class="slide" />
+          <img src="images/slide3.jpg" alt="" class="slide" />
+          <img src="images/slide4.jpg" alt="" class="slide" />
+          <img src="images/slide5.jpg" alt="" class="slide" />
+          <img src="images/slide1.jpg" alt="" class="slide" />
+        </div>
+      </div>
+      <div class="buttons" id="but1">
+        <button type="button">
+          <span class="material-icons"> navigate_before </span>
+        </button>
+        <div class="icons"></div>
+        <button type="button" id="but2">
+          <span class="material-icons"> navigate_next </span>
+        </button>
+      </div>
+    </div>
+    <script>
+      var slide = document.querySelectorAll(".slide");
+      var slides = document.querySelector(".slides");
+      var icon = document.querySelector(".icons");
+      var size = 90;
+      var but1 = document.getElementById("but1");
+      var but2 = document.getElementById("but2");
+      slides.style.width = slide.length * size + "vw";
+      slides.style.transition = "transform 0.5 ease-out";
+      var slideIndex = 0;
+      for (var i = 1; i <= slide.length; i++) {
+        icon.innerHTML += '<div class="dot"></div>';
+      }
+      var dot = document.querySelectorAll(".dot");
+      showSlides();
+      dot[dot.length - 1].style.display = "none";
+      var k = 0;
+      var j = 0;
+      but1.onclick = function () {
+        j = 1;
+      };
+      but2.onclick = function () {
+        k = 1;
+      };
+      function showSlides() {
+        for (var i = 0; i < dot.length; i++) {
+          dot[i].className = "dot";
+        }
+        slides.style.transition = "transform 0.5s ease-out";
+        if (slideIndex >= slide.length) {
+          slideIndex = 0;
+          slides.style.transition = "none";
+        }
+        slides.style.transform = "translateX(" + size * slideIndex * -1 + "vw)";
+        dot[slideIndex].className += " active";
+        if (slideIndex != slide.length - 1) {
+          slideIndex++;
+          setTimeout(showSlides, 3000);
+        } else {
+          slideIndex++;
+          setTimeout(showSlides, 500);
+        }
+      }
+    </script>
+  </body>
+</html>
