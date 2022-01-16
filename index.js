@@ -72,6 +72,7 @@ app.get("/", function (req, res) {
 });
 app.post("/update", urlencodedParser, function (req, res) {
   qr = req.body;
+  console.log(qr);
   res.render("codechef-chapter", { qr: req.body });
 });
 app.get("/update", function (req, res) {
